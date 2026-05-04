@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sakshi • Creative Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #FAF9F7;
+      --bg-secondary: linear-gradient(135deg, #FDFAF5 0%, #F8F4F0 50%, #F2EFEA 100%);
+      --text-primary: #2D1F1A;
+      --text-secondary: #5A4A40;
+      --accent-gold: #D4AF37;
+      --accent-purple: #B8A9C5;
+      --accent-pink: #E8B4B8;
+      --white: #FFFFFF;
+      --shadow-light: 0 10px 40px rgba(0,0,0,0.08);
+      --shadow-hover: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .nav-container {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      padding: 0.5rem 2rem;
+      box-shadow: var(--shadow-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-purple);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-purple);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--bg-secondary);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-gold);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 900;
+      line-height: 0.9;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-primary) 0%, #4A3F36 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      max-width: 30rem;
+      margin: 0 auto 4rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: transparent;
+      border: 2px solid var(--accent-purple);
+      color: var(--text-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.9rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button:hover {
+      background: var(--accent-purple);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Section Container */
+    .section {
+      padding: 8rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      text-align: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 40rem;
+      margin: 0 auto 4rem;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 2rem;
+      box-shadow: var(--shadow-light);
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(184, 169, 197, 0.3);
+      border-radius: 2rem;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent-purple);
+      background: rgba(184, 169, 197, 0.1);
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Journey Timeline */
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent-purple), var(--accent-pink));
+    }
+
+    .timeline-item {
+      display: flex;
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .timeline-content {
+      width: 45%;
+      padding: 2rem;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: var(--shadow-light);
+      position: relative;
+    }
+
+    .timeline-content.left {
+      margin-right: 3rem;
+    }
+
+    .timeline-content.right {
+      margin-left: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before { left: 2rem; }
+      .timeline-content { width: calc(100% - 4rem); margin-left: 4rem !important; }
+      .timeline-content.left, .timeline-content.right { margin-left: 4rem; }
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-purple);
+      border: 4px solid white;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .timeline-year {
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    /* Contact Section */
+    .contact-container {
+      background: var(--bg-secondary);
+      border-radius: 3rem;
+      padding: 4rem;
+      margin: 4rem 0;
+      box-shadow: var(--shadow-light);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      margin-bottom: 2rem;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .contact-value {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .contact-value:hover {
+      color: var(--accent-purple);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(184, 169, 197, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--accent-purple);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .contact-form {
+      background: white;
+      padding: 3rem;
+      border-radius: 2rem;
+      box-shadow: var(--shadow-light);
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid rgba(184, 169, 197, 0.3);
+      border-radius: 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 0 4px rgba(184, 169, 197, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .submit-button {
+      background: var(--text-primary);
+      color: white;
+      border: none;
+      padding: 1.2rem 3rem;
+      border-radius: 1rem;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-button:hover {
+      background: #4A3F36;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Footer */
+    footer {
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      color: var(--text-secondary);
+      border-top: 1px solid rgba(184, 169, 197, 0.2);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .section { padding: 4rem 1rem; }
+      .nav-container { left: 2rem; right: 2rem; transform: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#work" class="nav-link">Work</a></li>
+      <li><a href="#journey" class="nav-link">Journey</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <span class="hero-badge">Creative Portfolio</span>
+    <h1 class="hero-title">Sakshi</h1>
+    <p class="hero-subtitle">Exploring the beauty in everyday moments through photography, design, and storytelling</p>
+    <a href="#about" class="cta-button">Explore My Work</a>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-subtitle">18-year-old creative exploring photography, digital illustration, and brand design</p>
+    
+    <div class="about-grid">
+      <img src="images/profile.jpg" alt="Sakshi - Creative Portfolio" class="profile-image">
+      <div class="about-text">
+        <p>I've been making things since I picked up my first camera at 13. Self-taught in photography, digital illustration, and brand design, I love creating visual stories that feel personal and make people feel something.</p>
+        <p>Currently building my portfolio while taking on small creative projects. Open to collaborations that let me bring ideas to life.</p>
+        <div class="skills-grid">
+          <div class="skill-tag">Photography</div>
+          <div class="skill-tag">Digital Illustration</div>
+          <div class="skill-tag">Brand Identity</div>
+          <div class="skill-tag">Visual Storytelling</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="section" id="work" style="background: rgba(255,255,255,0.5);">
+    <h2 class="section-title">Selected Works</h2>
+    <p class="section-subtitle">Projects that showcase my creative process and storytelling</p>
+    
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="images/project-1.jpg" alt="Golden Hour Photography" class="project-image">
+        <div class="project-content">
+          <div class="project-meta">
+            <span>Photography</span>
+            <span>2024</span>
+          </div>
+          <h3 class="project-title">Golden Hour</h3>
+          <p class="project-description">A personal series capturing the quiet magic of late afternoon light — windows, tea going cold, moments suspended in golden glow.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="images/project-2.jpg" alt="Bloom Cafe Branding" class="project-image">
+        <div class="project-content">
+          <div class="project-meta">
+            <span>Brand Identity</span>
+            <span>2024</span>
+          </div>
+          <h3 class="project-title">Bloom Cafe</h3>
+          <p class="project-description">Complete visual identity for a home bakery — logo, packaging, and warm brand world designed for a friend's small business.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="images/project-3.jpg" alt="Inner Worlds Illustration" class="project-image">
+        <div class="project-content">
+          <div class="project-meta">
+            <span>Digital Illustration</span>
+            <span>2023-Ongoing</span>
+          </div>
+          <h3 class="project-title">Inner Worlds</h3>
+          <p class="project-description">Abstract illustrations exploring emotions through layered shapes and soft palettes — my visual diary of feelings too complex for words.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey -->
+  <section class="section" id="journey">
+    <h2 class="section-title">My Journey</h2>
+    <p class="section-subtitle">From first blurry photos to building brands</p>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content left">
+          <span class="timeline-year">2021</span>
+          <h3>First Camera</h3>
+          <p>Borrowed my dad's old camera at 13. First photo was blurry and badly exposed. I was instantly obsessed. That was the spark.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content right">
+          <span class="timeline-year">2023</span>
+          <h3>Digital Design</h3>
+          <p>Self-taught Procreate, then real design tools. Made my first logo for school creative club. Realized I wanted to do this forever.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content left">
+          <span class="timeline-year">2024</span>
+          <h3>First Client</h3>
+          <p>Designed full brand identity for friend's bakery. Real brief, real feedback, real deadline. Packaging went live. People bought it.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content right">
+          <span class="timeline-year">Now</span>
+          <h3>Building Portfolio</h3>
+          <p>18yo, taking on small projects, building this portfolio, figuring out what's next. The best work is still ahead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="contact-container">
+      <h2 class="section-title" style="margin-bottom: 2rem;">Let's Collaborate</h2>
+      <div class="contact-grid">
+        <div>
+          <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 2rem;">Get in touch</h3>
+          
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <a href="mailto:sakshidesign@gmail.com" class="contact-value">sakshidesign@gmail.com</a>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="Behance">💻</a>
+            <a href="mailto:sakshidesign@gmail.com" class="social-link" aria-label="Email">✉️</a>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <form>
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tell me about your project</label>
+              <textarea class="form-textarea" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Sakshi. Made with ❤️ for creative technology. "The more you use, the more you have." — Maya Angelou</p>
+  </footer>
+</body>
+</html>
